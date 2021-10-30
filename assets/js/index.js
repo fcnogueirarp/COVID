@@ -1,7 +1,10 @@
 import { exibeBarras } from "./homeBarras.js";
 import { exibePainelEGrafico } from "./homePainelEPizza.js";
 
-let res = await axios.get("https://api.covid19api.com/summary");
+let caminho = "https://api.covid19api.com";
+let res = await axios.get(caminho + "/summary");
+console.log(res.data);
+
 let TotalDeConfirmados = res.data.Global.TotalConfirmed;
 let TotalDeMortes = res.data.Global.TotalDeaths;
 let TotalDeRecuperados = res.data.Global.TotalRecovered;
@@ -17,8 +20,7 @@ exibePainelEGrafico(
   TotalDeRecuperados,
   NovosConfirmados,
   NovosRecuperados,
-  NovasMortes,
-  DadosPorPais
+  NovasMortes
 );
 
 exibeBarras(DadosPorPais);

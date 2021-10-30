@@ -1,6 +1,5 @@
 export function exibeBarras(DadosPorPais) {
   let ordenadoPorMortes = _.orderBy(DadosPorPais, ["TotalDeaths"], ["desc"]);
-
   const ctx1 = document.getElementById("barras").getContext("2d");
   const barras = new Chart(ctx1, {
     type: "bar",
@@ -27,7 +26,7 @@ export function exibeBarras(DadosPorPais) {
     }
   }
 
-  console.log(barras.data.labels);
-  console.log(barras.data.datasets[0].data);
+  barras.data.labels;
+  barras.data.datasets[0].data;
   barras.update();
 }

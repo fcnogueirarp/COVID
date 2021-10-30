@@ -4,13 +4,12 @@ export function exibePainelEGrafico(
   TotalDeRecuperados,
   NovosConfirmados,
   NovosRecuperados,
-  NovasMortes,
+  NovasMortes
 ) {
   document.getElementById("confirmed").innerHTML = TotalDeConfirmados;
   document.getElementById("death").innerHTML = TotalDeMortes;
   document.getElementById("recovered").innerHTML = TotalDeRecuperados;
 
-  //pizza
 
   //graficos
   const ctx = document.getElementById("pizza").getContext("2d");
@@ -35,13 +34,6 @@ export function exibePainelEGrafico(
           borderWidth: 1,
         },
       ],
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-        },
-      },
     },
   });
 
