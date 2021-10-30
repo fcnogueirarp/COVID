@@ -1,41 +1,20 @@
 export function verificaTotalDeMortes(paisesFiltrados) {
+  console.log(paisesFiltrados);
   let mortesPais = paisesFiltrados.map((pais) => {
     let mortePais = pais.Deaths;
     return mortePais;
   });
-  console.log(mortesPais);
+  console.log("total de Mortes " + mortesPais);
   let totalDeMortes = _.last(mortesPais);
-  console.log(totalDeMortes);
+
   let kpideaths = document.getElementById("kpideaths");
   kpideaths.innerHTML = totalDeMortes;
-  criaGrafico(totalDeMortes);
-  return totalDeMortes;
-}
 
-export function verificaTotalDeConfirmados(paisesFiltrados) {
-  let confirmadosPais = paisesFiltrados.map((pais) => {
-    let confirmadoPais = pais.Confirmed;
-    return confirmadoPais;
-  });
-  let totalDeConfirmados = _.last(confirmadosPais);
-  let kpiconfirmed = document.getElementById("kpiconfirmed");
-  kpiconfirmed.innerHTML = totalDeConfirmados;
-}
+  const ctx = document.getElementById("linhas");
 
-export function verificaRecuperados(paisesFiltrados) {
-  let recuperadosPais = paisesFiltrados.map((pais) => {
-    let recuperadoPais = pais.Recovered;
-    return recuperadoPais;
-  });
-  let totalDeRecuperados = _.last(recuperadosPais);
-  let kpirecovered = document.getElementById("kpirecovered");
-  kpirecovered.innerHTML = totalDeRecuperados;
-}
-
-export function criaGrafico(totalDeMortes) {
-  const ctx3 = document.getElementById("linhas").getContext("2d");
-  const linhas = new Chart(ctx3, {
-    type: "line",
+  if (window.myCharts != undefined) window.myCharts.destroy();
+  window.myCharts = new Chart(ctx, {
+    type: "bar",
     data: {
       labels: ["Número de Mortes", ["Média de Mortes"]],
       datasets: [
@@ -57,8 +36,27 @@ export function criaGrafico(totalDeMortes) {
       ],
     },
   });
+  console.log("mortesPais" + mortesPais);
+  window.myCharts.data.datasets[0].data.push(totalDeMortes);
+  window.myCharts.update();
+}
 
-  //linhas.data.datasets[0].data.push(totalDeRecuperados);
-  linhas.data.datasets[0].data.push(totalDeMortes);
-  linhas.update();
+export function verificaTotalDeConfirmados(paisesFiltrados) {
+  let confirmadosPais = paisesFiltrados.map((pais) => {
+    let confirmadoPais = pais.Confirmed;
+    return confirmadoPais;
+  });
+  let totalDeConfirmados = _.last(confirmadosPais);
+  let kpiconfirmed = document.getElementById("kpiconfirmed");
+  kpiconfirmed.innerHTML = totalDeConfirmados;
+}
+
+export function verificaRecuperados(paisesFiltrados) {
+  let recuperadosPais = paisesFiltrados.map((pais) => {
+    let recuperadoPais = pais.Recovered;
+    return recuperadoPais;
+  });
+  let totalDeRecuperados = _.last(recuperadosPais);
+  let kpirecovered = document.getElementById("kpirecovered");
+  kpirecovered.innerHTML = totalDeRecuperados;
 }

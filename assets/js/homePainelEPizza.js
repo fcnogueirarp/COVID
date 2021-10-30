@@ -10,10 +10,9 @@ export function exibePainelEGrafico(
   document.getElementById("death").innerHTML = TotalDeMortes;
   document.getElementById("recovered").innerHTML = TotalDeRecuperados;
 
-
   //graficos
-  const ctx = document.getElementById("pizza").getContext("2d");
-  const pizza = new Chart(ctx, {
+  const ctx = document.getElementById("pizza");
+  const myChart = new Chart(ctx, {
     type: "pie",
     data: {
       labels: ["Confirmados", "Recuperados", "Mortes"],
@@ -37,8 +36,8 @@ export function exibePainelEGrafico(
     },
   });
 
-  pizza.data.datasets[0].data.push(NovosConfirmados);
-  pizza.data.datasets[0].data.push(NovosRecuperados);
-  pizza.data.datasets[0].data.push(NovasMortes);
-  pizza.update();
+  myChart.data.datasets[0].data.push(NovosConfirmados);
+  myChart.data.datasets[0].data.push(NovosRecuperados);
+  myChart.data.datasets[0].data.push(NovasMortes);
+  myChart.update();
 }

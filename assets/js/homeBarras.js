@@ -1,7 +1,7 @@
 export function exibeBarras(DadosPorPais) {
   let ordenadoPorMortes = _.orderBy(DadosPorPais, ["TotalDeaths"], ["desc"]);
-  const ctx1 = document.getElementById("barras").getContext("2d");
-  const barras = new Chart(ctx1, {
+  const ctx = document.getElementById("barras");
+  const myChart = new Chart(ctx, {
     type: "bar",
     data: {
       labels: [],
@@ -21,12 +21,13 @@ export function exibeBarras(DadosPorPais) {
 
   function top10(ordenadoPorMortes) {
     for (let i = 0; i < 10; i++) {
-      barras.data.labels.push(ordenadoPorMortes[i].Country);
-      barras.data.datasets[0].data.push(ordenadoPorMortes[i].TotalDeaths);
+      myChart.data.labels.push(ordenadoPorMortes[i].Country);
+      myChart.data.datasets[0].data.push(ordenadoPorMortes[i].TotalDeaths);
     }
   }
 
-  barras.data.labels;
-  barras.data.datasets[0].data;
-  barras.update();
+  myChart.data.labels;
+  myChart.data.datasets[0].data;
+  myChart.update();
+
 }
