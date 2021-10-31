@@ -1,11 +1,39 @@
 export function verificaTotalDeMortes(paisesFiltrados) {
-  console.log(paisesFiltrados);
-  let mortesPais = paisesFiltrados.map((pais) => {
-    let mortePais = pais.Deaths;
-    return mortePais;
+  let mortes = paisesFiltrados.map((pais) => {
+    let morte = pais.Deaths;
+    return morte;
   });
-  console.log("total de Mortes " + mortesPais);
-  let totalDeMortes = _.last(mortesPais);
+
+  var mortesDiarias = [];
+  for (let i = 0; i < mortes.length; i++) {
+    mortesDiarias[i] = mortes[i + 1] - mortes[i];
+  }
+
+  const novoMortesDiarias = mortesDiarias.filter(function (value) {
+    return !Number.isNaN(value);
+  });
+
+  //console.log(novoMortesDiarias);
+
+  let mediaMortes = _.sum(novoMortesDiarias) / novoMortesDiarias.length;
+  console.log("média mortes " + mediaMortes);
+
+  let datas = paisesFiltrados.map((pais) => {
+    let data = pais.Date;
+    return data;
+  });
+
+  datas = _.split(datas, "T", 1);
+
+  let recuperados = paisesFiltrados.map((pais) => {
+    let recuperado = pais.Recovered;
+    return recuperado;
+  });
+
+  //console.log("morte " + mortes);
+  // console.log("recuperados " + recuperados);
+
+  let totalDeMortes = _.last(mortes);
 
   let kpideaths = document.getElementById("kpideaths");
   kpideaths.innerHTML = totalDeMortes;
@@ -14,30 +42,40 @@ export function verificaTotalDeMortes(paisesFiltrados) {
 
   if (window.myCharts != undefined) window.myCharts.destroy();
   window.myCharts = new Chart(ctx, {
-    type: "bar",
+    type: "line",
     data: {
-      labels: ["Número de Mortes", ["Média de Mortes"]],
+      labels: [],
       datasets: [
         {
-          label: "# Curva Diária de COVID 19",
+          label: "# Número de Mortes",
           data: [],
-          backgroundColor: [
-            "rgba(255, 99, 132, 0.2)",
-            "rgba(54, 162, 235, 0.2)",
-            "rgba(255, 206, 86, 0.2)",
-          ],
-          borderColor: [
-            "rgba(255, 99, 132, 1)",
-            "rgba(54, 162, 235, 1)",
-            "rgba(255, 206, 86, 1)",
-          ],
+          backgroundColor: ["rgba(255, 100, 0, 1)"],
+          borderColor: ["rgba(255, 100, 0, 1)"],
+          borderWidth: 1,
+        },
+        {
+          label: "# Média de Mortes",
+          data: [],
+
+          backgroundColor: ["rgba(255, 0, 0, 1)"],
+          borderColor: ["rgba(255, 0, 0, 1)"],
           borderWidth: 1,
         },
       ],
     },
   });
-  console.log("mortesPais" + mortesPais);
-  window.myCharts.data.datasets[0].data.push(totalDeMortes);
+  //console.log("datas" + datas);
+  // console.log("média mortes teste " + mediaMortes);
+
+  for (let i = 0; i < novoMortesDiarias.length; i++) {
+    window.myCharts.data.datasets[1].data.push(mediaMortes);
+  }
+
+  for (let i = 0; i < novoMortesDiarias.length; i++) {
+    window.myCharts.data.datasets[0].data.push(novoMortesDiarias[i]);
+    window.myCharts.data.labels.push(datas);
+  }
+
   window.myCharts.update();
 }
 

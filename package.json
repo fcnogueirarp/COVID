@@ -1,7 +1,6 @@
 {
   "name": "covid-status-base",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,6 +9,16 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "axios": "^0.24.0"
-  }
+    "axios": "^0.24.0",
+    "date-fns": "^2.25.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fcnogueirarp/COVID.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fcnogueirarp/COVID/issues"
+  },
+  "homepage": "https://github.com/fcnogueirarp/COVID#readme",
+  "description": ""
 }
