@@ -6,9 +6,9 @@ export function exibePainelEGrafico(
   NovosRecuperados,
   NovasMortes
 ) {
-  document.getElementById("confirmed").innerHTML = TotalDeConfirmados;
-  document.getElementById("death").innerHTML = TotalDeMortes;
-  document.getElementById("recovered").innerHTML = TotalDeRecuperados;
+  document.getElementById("confirmed").innerHTML = TotalDeConfirmados.toLocaleString('pt-BR');
+  document.getElementById("death").innerHTML = TotalDeMortes.toLocaleString('pt-BR');
+  document.getElementById("recovered").innerHTML = TotalDeRecuperados.toLocaleString('pt-BR');
 
   //graficos
   const ctx = document.getElementById("pizza");

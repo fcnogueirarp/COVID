@@ -1,8 +1,6 @@
-import {
-  verificaTotalDeMortes,
-  verificaTotalDeConfirmados,
-  verificaRecuperados,
-} from "./countryTotais.js";
+import { verificaTotalDeMortes } from "./countryTotais.js";
+import { verificaTotalConfirmados } from "./verificaConfirmados.js";
+import { verificaTotalRecuperados } from "./verificaRecuperados.js";
 
 let dadosPaises = await axios.get("https://api.covid19api.com/countries");
 let paises = dadosPaises.data;
@@ -17,7 +15,7 @@ selecionaPais(selectPais, dataInicio, dataFim);
 
 function criaPaises(paises, dataInicio, dataFim) {
   let pais = paises.map((item) => {
-    return `<option>${item.Slug}</option>`;
+    return `<option>${item.Country}</option>`;
   });
   pais.sort((a, b) => {
     if (a > b) {
@@ -41,14 +39,20 @@ function selecionaPais(selectPais, dataInicio, dataFim) {
     promise.then((resposta) => {
       resposta.json().then((paisesFiltrados) => {
         verificaTotalDeMortes(paisesFiltrados);
-        verificaTotalDeConfirmados(paisesFiltrados);
-        verificaRecuperados(paisesFiltrados);
+        verificaTotalConfirmados(paisesFiltrados);
+        verificaTotalRecuperados(paisesFiltrados);
 
         let selectDados = document.getElementById("cmbData");
 
         selectDados.addEventListener("click", () => {
           if (selectDados.value == "Deaths") {
             verificaTotalDeMortes(paisesFiltrados);
+          } else if (selectDados.value == "Recovered") {
+            console.log("Recuperados");
+            verificaTotalRecuperados(paisesFiltrados);
+          } else if (selectDados.value == "Confirmed") {
+            console.log("Confirmados");
+            verificaTotalConfirmados(paisesFiltrados);
           }
         });
       });
